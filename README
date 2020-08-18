@@ -1,0 +1,8 @@
+I have developed a customer-facing eCommerce application where a user would be able to:
+
+Add items, with the intent to purchase, into a Checkout cart
+Using Stripe’s Integration, a user can checkout and pay for the items in their Checkout Cart
+Receive a success page stating the total amount charged in the purchase and paymentIntent ID for their records.
+
+The eCommerce application is developed in Node.js, leveraging popular industry frameworks and technologies such as MongoDB, Express and Pug. The Stripe eCommerce application demonstrates the  straight-through workflow of a customer’s unique eCommerce application with the integration of Stripe’s Checkout API.
+

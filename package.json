@@ -1,0 +1,25 @@
+{
+  "name": "stripe-ecommerce-app",
+  "version": "1.0.0",
+  "description": "Stripe E-Commerce app in NodeJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Blake Salvador",
+  "license": "ISC",
+  "dependencies": {
+    "stripe": "^8.29.0"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.732.0",
+    "body-parser": "^1.19.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.9.3",
+    "pug": "^2.0.4",
+    "uuid": "^8.3.0"
+  }
+}

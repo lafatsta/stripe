@@ -1,0 +1,24 @@
+html
+  head
+    title=title
+    script(src='https://js.stripe.com/v3/')
+    script(defer, src='checkout.js')
+  body    
+    h1=title
+    ul
+        each val in items 
+            h1=val.name
+            |
+            img(src=val.images[0])
+            |
+            h2 Quantity: #{val.quantity}
+            |
+            h3 Total Amount:$ #{(val.amount*val.quantity)/100} USD
+            |
+            P *****************************************************************************************************
+        else
+            li There is nothing in the cart
+        if items
+            button(id='submit' pk=pk sessionID=sessionID) Pay Now
+        #checkoutError
+        a(href='/shop') Go back to Shopping!

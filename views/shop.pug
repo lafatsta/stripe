@@ -1,0 +1,22 @@
+html
+  head
+    title=title
+    script(src='https://js.stripe.com/v3/')
+  body    
+    h1.blue=title
+a(href='/Checkout') Checkout #{cartItem.itemsInCart} items for $#{cartItem.cartTotal}
+ul
+        each val in results 
+            h1=val.item
+            |
+            img(src=val.img)
+            |
+            h2 $#{val.price} USD
+            |
+            |
+            a(href='/addToCart/'+val.product_id) Add To Cart
+            |
+            P *****************************************************************************************************
+        else
+            li There are no values
+a(href='/Checkout') Checkout #{cartItem.itemsInCart} items for $#{cartItem.cartTotal}
