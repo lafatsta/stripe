@@ -9,6 +9,7 @@
   "author": "Blake Salvador",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "stripe": "^8.29.0"
   },
   "devDependencies": {
@@ -19,7 +20,7 @@
     "express-session": "^1.17.0",
     "moment": "^2.24.0",
     "mongoose": "^5.9.3",
-    "pug": "^2.0.4",
+    "pug": "^3.0.2",
     "uuid": "^8.3.0"
   }
 }
