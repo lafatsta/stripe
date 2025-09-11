@@ -11,6 +11,10 @@ module.exports = function (currentCart) {
     }
 
     this.add = function(productID, item) {
+        // Prevent prototype pollution via dangerous keys
+        if (productID === '__proto__' || productID === 'constructor' || productID === 'prototype') {
+            return;
+        }
         var itemToAdd = this.items[productID];
         if(itemToAdd == null){
             var newItem = {item: item, quantity:0, totalCost:0}
