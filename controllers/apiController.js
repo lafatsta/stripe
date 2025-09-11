@@ -8,6 +8,16 @@ const url = require('url');
 var debug = require('debug')('app')
 var stripe = "";
 
+// Import rate limiting middleware
+const rateLimit = require('express-rate-limit');
+
+// Create a rate limiter: max 100 requests per 15 minutes from a single IP
+const addToCartLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 min
+  max: 100,
+  message: "Too many requests, please try again later."
+});
+
 /* Using AWS Secrets Manager to secure stripe_sk instead of exposed in code/configurations*/
 var awssecrets = require('../aws/aws-secrets');
 awssecrets.handler().then(function (data) {
@@ -31,7 +41,7 @@ module.exports = function (app) {
 
     });
 
-    app.get('/addToCart/:productID', function (req, res) {
+    app.get('/addToCart/:productID', addToCartLimiter, function (req, res) {
         var cartItem = new cart(req.session.cart);
         catalogs.find({},
             function (err, results) {
