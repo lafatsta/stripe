@@ -18,6 +18,13 @@ const addToCartLimiter = rateLimit({
   message: "Too many requests, please try again later."
 });
 
+// Create a rate limiter for shop browsing
+const shopLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 min
+  max: 100,
+  message: "Too many requests on shop, please try again later."
+});
+
 /* Using AWS Secrets Manager to secure stripe_sk instead of exposed in code/configurations*/
 var awssecrets = require('../aws/aws-secrets');
 awssecrets.handler().then(function (data) {
@@ -30,7 +37,7 @@ module.exports = function (app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
-    app.get(['/shop', '/'], function (req, res) {
+    app.get(['/shop', '/'], shopLimiter, function (req, res) {
         var currentCart = new cart(req.session.cart);
         catalogs.find({},
             function (err, results) {
