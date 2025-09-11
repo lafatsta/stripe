@@ -20,7 +20,12 @@ awssecrets.handler().then(function (data) {
 
 // Ensure cookies are only sent over HTTPS in production
 if (!constants.sessionOptions.cookie) constants.sessionOptions.cookie = {};
-constants.sessionOptions.cookie.secure = process.env.NODE_ENV === 'production';
+if (process.env.NODE_ENV === 'production') {
+    constants.sessionOptions.cookie.secure = true;
+} else {
+    constants.sessionOptions.cookie.secure = false;
+    console.warn('Warning: Session cookies are not marked as secure. This is only safe for local development. Do not use in production!');
+}
 app.use(session(constants.sessionOptions));
 app.set('view engine', 'pug');
 app.use(express.static('public'));
