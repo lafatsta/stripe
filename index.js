@@ -17,6 +17,10 @@ awssecrets.handler().then(function (data) {
 
 
 
+
+// Ensure cookies are only sent over HTTPS in production
+if (!constants.sessionOptions.cookie) constants.sessionOptions.cookie = {};
+constants.sessionOptions.cookie.secure = process.env.NODE_ENV === 'production';
 app.use(session(constants.sessionOptions));
 app.set('view engine', 'pug');
 app.use(express.static('public'));
