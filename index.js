@@ -18,14 +18,19 @@ awssecrets.handler().then(function (data) {
 
 
 
-// Ensure cookies are only sent over HTTPS in production
+// Ensure cookies are only sent over HTTPS; force explicit override for development
 if (!constants.sessionOptions.cookie) constants.sessionOptions.cookie = {};
+
 if (process.env.NODE_ENV === 'production') {
     constants.sessionOptions.cookie.secure = true;
-} else {
+} else if (process.env.ALLOW_INSECURE_COOKIES === '1') {
     constants.sessionOptions.cookie.secure = false;
-    console.warn('Warning: Session cookies are not marked as secure. This is only safe for local development. Do not use in production!');
+    console.warn('Warning: Session cookies are not marked as secure. This is only safe for local development and should NOT be used in production!');
+} else {
+    console.error('ERROR: Insecure cookies are not allowed. To run in development without HTTPS, set ALLOW_INSECURE_COOKIES=1 in your environment variables (never do this in production).');
+    process.exit(1);
 }
+
 app.use(session(constants.sessionOptions));
 app.set('view engine', 'pug');
 app.use(express.static('public'));
