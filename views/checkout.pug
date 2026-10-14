@@ -6,19 +6,21 @@ html
   body    
     h1=title
     ul
-        each val in items 
-            h1=val.name
+      each val in items
+          h1= val.price_data.product_data.name
             |
-            img(src=val.images[0])
+          if val.price_data && val.price_data.product_data && val.price_data.product_data.images && val.price_data.product_data.images.length
+            img(src=val.price_data.product_data.images[0])
             |
-            h2 Quantity: #{val.quantity}
+          h2 Quantity: #{val.quantity}
             |
-            h3 Total Amount:$ #{(val.amount*val.quantity)/100} USD
+          h3 Total Amount: $#{(val.price_data.unit_amount * val.quantity) / 100} USD
             |
-            P *****************************************************************************************************
-        else
-            li There is nothing in the cart
-        if items
-            button(id='submit' pk=pk sessionID=sessionID) Pay Now
-        #checkoutError
-        a(href='/shop') Go back to Shopping!
+          P *****************************************************************************************************
+      else
+          li There is nothing in the cart
+    if items && items.length
+      button(id='submit' pk=pk sessionID=sessionID) Pay Now
+    if checkoutError
+      #checkoutError= checkoutError
+    a(href='/shop') Go back to Shopping!

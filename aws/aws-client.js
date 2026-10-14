@@ -1,12 +1,24 @@
-var constants = require('../constants');
-var AWS = require('aws-sdk'),
-    region = constants.aws_region,
-    secretName = constants.aws_secret_name,
-    secret,
-    decodedBinarySecret;
+/*
+var constants = require('../constants')
+const {
+  SecretsManagerClient,
+  GetSecretValueCommand
+} = require('@aws-sdk/client-secrets-manager')
 
-const secretsManager = new AWS.SecretsManager({
-    region: region
-});
+const secretsManager = new SecretsManagerClient({
+  region: constants.aws_region
+})
 
-module.exports = secretsManager;
+async function getSecret () {
+  const command = new GetSecretValueCommand({
+    SecretId: 'BDR01'
+  })
+
+  const response = await secretsManager.send(command)
+
+  if (!response.SecretString) {
+    throw new Error('SecretString is empty')
+  }
+
+  return JSON.parse(response.SecretString)
+}*/
